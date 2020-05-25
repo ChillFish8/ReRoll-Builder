@@ -1,2 +1,3 @@
-/build/ReRoll Builder - Powered by CF8.exe
 /Cargo.lock
+/target/
+/build/ReRollBuilder.exe
