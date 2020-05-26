@@ -21,7 +21,6 @@ function check(e) {
             navMenuDiv.classList.add("hidden");
         }
     }
-
 }
 
 function checkParent(t, elm) {
