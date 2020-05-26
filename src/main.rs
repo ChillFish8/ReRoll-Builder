@@ -24,11 +24,18 @@ fn handle_connection(mut stream: TcpStream) {
     } else if buffer.starts_with(GET_MAIN) {
         if buffer.starts_with(b"GET /build/class HTTP/1.1\r\n") {
             ("HTTP/1.1 200 OK\r\n\r\n", "html/build_class.html")
+
         } else if buffer.starts_with(b"GET /build/class HTTP/1.1\r\n") {
             ("HTTP/1.1 200 OK\r\n\r\n", "html/build_class.html")
+        } else if buffer.starts_with(b"GET /build/subclass HTTP/1.1\r\n") {
+            ("HTTP/1.1 200 OK\r\n\r\n", "html/build_subclass.html")
         } else if buffer.starts_with(b"GET /build/race HTTP/1.1\r\n") {
-            ("HTTP/1.1 200 OK\r\n\r\n", "html/build_class.html")
+            ("HTTP/1.1 200 OK\r\n\r\n", "html/build_race.html")
         } else if buffer.starts_with(b"GET /build/spell HTTP/1.1\r\n") {
+            ("HTTP/1.1 200 OK\r\n\r\n", "html/build_spell.html")
+        } else if buffer.starts_with(b"GET /build/feat HTTP/1.1\r\n") {
+            ("HTTP/1.1 200 OK\r\n\r\n", "html/build_spell.html")
+        } else if buffer.starts_with(b"GET /build/background HTTP/1.1\r\n") {
             ("HTTP/1.1 200 OK\r\n\r\n", "html/build_spell.html")
         } else {
             ("HTTP/1.1 404 NOT FOUND\r\n\r\n", "html/404.html")
