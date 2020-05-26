@@ -34,9 +34,9 @@ fn handle_connection(mut stream: TcpStream) {
         } else if buffer.starts_with(b"GET /build/spell HTTP/1.1\r\n") {
             ("HTTP/1.1 200 OK\r\n\r\n", "html/build_spell.html")
         } else if buffer.starts_with(b"GET /build/feat HTTP/1.1\r\n") {
-            ("HTTP/1.1 200 OK\r\n\r\n", "html/build_spell.html")
+            ("HTTP/1.1 200 OK\r\n\r\n", "html/build_feat.html")
         } else if buffer.starts_with(b"GET /build/background HTTP/1.1\r\n") {
-            ("HTTP/1.1 200 OK\r\n\r\n", "html/build_spell.html")
+            ("HTTP/1.1 200 OK\r\n\r\n", "html/build_background.html")
         } else {
             ("HTTP/1.1 404 NOT FOUND\r\n\r\n", "html/404.html")
         }
