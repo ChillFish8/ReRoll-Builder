@@ -52,37 +52,37 @@
              id="nav-content">
             <ul class="list-reset lg:flex justify-end flex-1 items-center">
                 <li class="mr-3">
-                    <a class="inline-block py-2 px-4 text-black font-bold text-lg no-underline hover:text-white hover:text-underline py-2 px-4"
+                    <a class="inline-block py-2 px-4 text-black font-bold text-lg hover:underline py-2 px-4"
                        href="build/class">
                         Classes
                     </a>
                 </li>
                 <li class="mr-3">
-                    <a class="inline-block py-2 px-4 text-black font-bold text-lg no-underline hover:text-white hover:text-underline py-2 px-4"
+                    <a class="inline-block py-2 px-4 text-black font-bold text-lg hover:underline py-2 px-4"
                        href="build/class">
                         Subclasses
                     </a>
                 </li>
                 <li class="mr-3">
-                    <a class="inline-block py-2 px-4 text-black font-bold text-lg no-underline hover:text-white hover:text-underline py-2 px-4"
+                    <a class="inline-block py-2 px-4 text-black font-bold text-lg hover:underline py-2 px-4"
                        href="build/race">
                         Races
                     </a>
                 </li>
                 <li class="mr-3">
-                    <a class="inline-block py-2 px-4 text-black font-bold text-lg no-underline hover:text-white hover:text-underline py-2 px-4"
+                    <a class="inline-block py-2 px-4 text-black font-bold text-lg hover:underline py-2 px-4"
                        href="build/spell">
                         Spells
                     </a>
                 </li>
                 <li class="mr-3">
-                    <a class="inline-block py-2 px-4 text-black font-bold text-lg no-underline hover:text-white hover:text-underline py-2 px-4"
+                    <a class="inline-block py-2 px-4 text-black font-bold text-lg hover:underline py-2 px-4"
                        href="build/class">
                         Feats
                     </a>
                 </li>
                 <li class="mr-3">
-                    <a class="inline-block py-2 px-4 text-black font-bold text-lg no-underline hover:text-white hover:text-underline py-2 px-4"
+                    <a class="inline-block py-2 px-4 text-black font-bold text-lg hover:underline py-2 px-4"
                        href="build/class">
                         Backgrounds
                     </a>
@@ -154,7 +154,42 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 -->
 
-<script src="../static/js/index.js" type="text/javascript"></script>
+<script type="text/javascript">
+    const navMenuDiv = document.getElementById("nav-content");
+    const navMenu = document.getElementById("nav-toggle");
+
+    document.onclick = check;
+
+    function check(e) {
+        const target = (e && e.target) || (event && event.srcElement);
+
+        //Nav Menu
+        if (!checkParent(target, navMenuDiv)) {
+            // click NOT on the menu
+            if (checkParent(target, navMenu)) {
+                // click on the link
+                if (navMenuDiv.classList.contains("hidden")) {
+                    navMenuDiv.classList.remove("hidden");
+                } else {
+                    navMenuDiv.classList.add("hidden");
+                }
+            } else {
+                // click both outside link and outside menu, hide menu
+                navMenuDiv.classList.add("hidden");
+            }
+        }
+    }
+
+    function checkParent(t, elm) {
+        while (t.parentNode) {
+            if (t === elm) {
+                return true;
+            }
+            t = t.parentNode;
+        }
+        return false;
+    }
+</script>
 </body>
 
 </html>
