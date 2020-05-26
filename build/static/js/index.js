@@ -32,3 +32,7 @@ function checkParent(t, elm) {
     }
     return false;
 }
+
+function sendGitHub() {
+
+}
