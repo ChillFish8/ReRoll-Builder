@@ -12,36 +12,39 @@ fn main() {
     }
 }
 
+fn get_html_file(filename: &str) -> String {
+    return format!("html/{}.html", filename);
+}
+
 fn handle_connection(mut stream: TcpStream) {
     const GET_HOME: &[u8; 16] = b"GET / HTTP/1.1\r\n";
     const GET_MAIN: &[u8; 10] = b"GET /build";
+    const HTTP_OK: &str = "HTTP/1.1 200 OK\r\n\r\n";
+    const HTTP_NOTFOUND: &str = "HTTP/1.1 404 NOT FOUND\r\n\r\n";
 
     let mut buffer = [0; 512];
     stream.read(&mut buffer).unwrap();
 
     let (status_line, filename) = if buffer.starts_with(GET_HOME) {
-        ("HTTP/1.1 200 OK\r\n\r\n", "html/index.html")
+        (HTTP_OK, get_html_file("index"))
     } else if buffer.starts_with(GET_MAIN) {
         if buffer.starts_with(b"GET /build/class HTTP/1.1\r\n") {
-            ("HTTP/1.1 200 OK\r\n\r\n", "html/build_class.html")
-
-        } else if buffer.starts_with(b"GET /build/class HTTP/1.1\r\n") {
-            ("HTTP/1.1 200 OK\r\n\r\n", "html/build_class.html")
+            (HTTP_OK, get_html_file("build_class"))
         } else if buffer.starts_with(b"GET /build/subclass HTTP/1.1\r\n") {
-            ("HTTP/1.1 200 OK\r\n\r\n", "html/build_subclass.html")
+            (HTTP_OK, get_html_file("build_subclass"))
         } else if buffer.starts_with(b"GET /build/race HTTP/1.1\r\n") {
-            ("HTTP/1.1 200 OK\r\n\r\n", "html/build_race.html")
+            (HTTP_OK, get_html_file("build_race"))
         } else if buffer.starts_with(b"GET /build/spell HTTP/1.1\r\n") {
-            ("HTTP/1.1 200 OK\r\n\r\n", "html/build_spell.html")
+            (HTTP_OK, get_html_file("build_spell"))
         } else if buffer.starts_with(b"GET /build/feat HTTP/1.1\r\n") {
-            ("HTTP/1.1 200 OK\r\n\r\n", "html/build_feat.html")
+            (HTTP_OK, get_html_file("build_feat"))
         } else if buffer.starts_with(b"GET /build/background HTTP/1.1\r\n") {
-            ("HTTP/1.1 200 OK\r\n\r\n", "html/build_background.html")
+            (HTTP_OK, get_html_file("build_background"))
         } else {
-            ("HTTP/1.1 404 NOT FOUND\r\n\r\n", "html/404.html")
+            (HTTP_NOTFOUND, get_html_file("404"))
         }
     } else {
-        ("HTTP/1.1 404 NOT FOUND\r\n\r\n", "html/404.html")
+        (HTTP_NOTFOUND, get_html_file("404"))
     };
 
     let contents = fs::read_to_string(filename).unwrap();
